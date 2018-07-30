@@ -2,6 +2,7 @@
 
 ### Description
 This is my personal vim initialization file.
+
 I will constantly update this with any mapping/functions that I consider to ease my life.
 
 ### Functionalities
