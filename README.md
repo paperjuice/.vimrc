@@ -17,3 +17,6 @@ Besides some straight-forward bindings, I also have:
   3 aaaaaaf            3 aaaaaa
   4 ac                 4 a
   ```
+  
+### TODO
+* Add specified characters at the end of every line
