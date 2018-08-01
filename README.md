@@ -20,3 +20,4 @@ Besides some straight-forward bindings, I also have:
   
 ### TODO
 * Add specified characters at the end of every line
+* Comment all lines from cursor position to the specified number
