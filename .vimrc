@@ -50,3 +50,38 @@ function RemoveLastCharacter(n_line)
     let c += 1
   endwhile
 endfunction
+
+"Add # at the beginning of every line from
+"the cursor position until the specified line no"
+command! -nargs=* Cm call Comment(<f-args>)
+function Comment(n_line)
+  let c = 0
+  if a:n_line < line(".")
+    echo "Select the line number the function is going to run to"
+    return 1
+  endif
+
+  let ln = a:n_line - line(".")
+  while(c <= ln)
+    :execute "normal! 0i#\<esc>j"
+    let c += 1
+  endwhile
+endfunction
+
+
+"Add character at the end  of every line from
+"the cursor position until the specified line no"
+command! -nargs=* Add call AddCharacter(<f-args>)
+function AddCharacter(n_line, char)
+  let c = 0
+  if a:n_line < line(".")
+    echo "Select the line number the function is going to run to"
+    return 1
+  endif
+
+  let ln = a:n_line - line(".")
+  while(c <= ln)
+    :execute "normal! \<S-a>" . a:char . "\<esc>j"
+    let c += 1
+  endwhile
+endfunction
