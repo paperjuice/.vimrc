@@ -18,6 +18,28 @@ Besides some straight-forward bindings, I also have:
   4 ac                 4 a
   ```
   
+  * :Cm<line_number> - comments(add # at the beginning of line) from cursor position to specified line
+  ```
+  :Cm4 (cursor at line 1)
+  ```
+  ``` shell
+  1 aaad               1 #aad
+  2 aaaaaaad     ->    2 #aaaaaaad
+  3 aaaaaaf            3 #aaaaaaf
+  4 ac                 4 #ac
+  ```
+
+  * :Add<line_number> - add character at the end of the row from cursor position to specified line
+  ```
+  :Add1 hello (cursor at line 1)
+  ```
+  ``` shell
+  1 aaad               1 aadhello
+  2 aaaaaaad     ->    2 aaaaaaadhello
+  3 aaaaaaf            3 aaaaaafhello
+  4 ac                 4 achello
+  ```
+
+
 ### TODO
-* Add specified characters at the end of every line
-* Comment all lines from cursor position to the specified number
+* Come up with better names maybe
