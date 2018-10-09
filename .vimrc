@@ -33,6 +33,8 @@ au BufReadPost *.html set syntax=html
 "Highlight search"
 set hlsearch
 
+"copy to clipboard
+vmap <c-c> :w !pbcopy<CR><CR>
 
 "Delets the last character on every line from
 "the cursor position until the specified line no"
