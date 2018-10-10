@@ -12,6 +12,9 @@ set tabstop=8 softtabstop=0 expandtab shiftwidth=2 smarttab
 nnoremap d "_d
 vnoremap d "_d
 
+"ctrlp ignore elixir temp files
+let g:ctrlp_custom_ignore = '\v[\/](node_modules|target|dist|_build|deps)|(\.(swp|ico|git|svn))$'
+
 "Find in current directory"
 set path=$PWD/**
 
