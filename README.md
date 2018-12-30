@@ -43,3 +43,4 @@ Besides some straight-forward bindings, I also have:
 
 ### TODO
 * Come up with better names maybe
+* Shortcut for buffer width resizing.(:vertical resize +/-x)
