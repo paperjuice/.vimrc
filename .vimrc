@@ -14,6 +14,35 @@ augroup END
 " }}}
 
 let mapleader="-"
+
+"Command for creating IO.inspects
+"Example:
+":IO var -> IO.inspect(var, label: Var)
+":IO > -> |> IO.inspect(label: <the first word above>)
+"TODO: this will break: 'unique_constraint(:email)' <- fix it
+"TODO: this will break: 'end)' <- fix it
+"TODO: this will break: 'k' followed by IO |> <- fix it
+command! -nargs=1 IO call s:IOInspect(<f-args>)
+function! s:IOInspect(label)
+  if a:label =~ ">"
+    execute 'normal! kVyj'
+    let l:line = @"
+
+    let l:word = substitute(l:line, '^\s*[|>]*\s*', '', '')
+    let l:word = substitute(l:word, '[\(\[\?]', ' ', '')
+
+    "TODO: split can be replaced with something better
+    let l:word = split(l:word)[0]
+
+    execute 'normal! mZO|> IO.inspect(label: ' . l:word. "\<esc>" . 'bvUA)' . "\<esc>" . '`Z'
+  else
+    execute 'normal! mZOIO.inspect('. a:label . ', label: ' .  a:label . "\<esc>" . 'bvU' . 'A)' . "\<esc>" . '`Z'
+  endif
+endfunction
+
+"Shortcut for Ack!
+command! -nargs=1 A Ack! <f-args>
+
 " Add lorem ipsum text. The accepted argument is the number of words
 command! -nargs=1 Lorem call s:GenerateLorem(<f-args>)
 function! s:GenerateLorem(number)
@@ -58,7 +87,7 @@ au FocusGained,BufEnter * :silent! !
 au FocusLost,WInLeave * :wa
 
 "Toggle NerdTree"
-noremap <S-m> :NERDTreeToggle<CR>
+nnoremap <S-m> :NERDTreeToggle<CR>
 
 "HTML syntax highlight"
 au BufReadPost *.html set syntax=html
@@ -72,14 +101,22 @@ set hlsearch incsearch
 vnoremap <leader>c :call Comment()<cr>
 function! Comment()
   let line = getline('.')
+
+  execute 'normal! mZ'
+
   if line != ''
     call Comment_or_uncomment(line)
   endif
+
+  execute 'normal! V`Z='
 endfunction
+"TODO: remove sequences of '#'
 function! Comment_or_uncomment(line)
   let l:comment_symbol = '#'
-  if a:line =~ '^' . l:comment_symbol
-    execute 'normal! 0s' . "\<esc>"
+  if a:line =~ '^\s\+' . l:comment_symbol
+    execute 'normal! 0f' . l:comment_symbol . 's' . "\<esc>"
+  elseif a:line =~ '^#'
+    execute 'normal! 0s'
   else
     execute 'normal! 0i' . l:comment_symbol . "\<esc>"
   endif
@@ -116,10 +153,8 @@ endfunction
 " }}}
 
 " Abbreviations -------------------------- {{{
-:iabbrev in inspect
-:iabbrev defm <esc>gg:call s:ProcessModuleName()<cr>
-
-function! s:ProcessModuleName()
+:iabbrev defm <esc>gg:call ProcessModuleName()<cr>
+function! ProcessModuleName()
   "Get first line from mix.exs
   execute ':r! sed -n 1p mix.exs'
   execute 'normal! f.d$'
