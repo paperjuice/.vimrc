@@ -15,6 +15,9 @@ augroup END
 
 let mapleader="-"
 
+"Adds quotation marks around the word where the cursor is
+nnoremap <leader>" mZbi"<esc>ea"<esc>`Z
+
 "Command for creating IO.inspects
 "Example:
 ":IO var -> IO.inspect(var, label: Var)
