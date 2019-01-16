@@ -15,20 +15,24 @@ augroup END
 
 let mapleader="-"
 
+iabbrev privatecom <cr># -----------------------------------------------------------------------<cr>#                               PRIVATE<cr># -----------------------------------------------------------------------
+
 "Adds quotation marks around the word where the cursor is
 nnoremap <leader>" mZbi"<esc>ea"<esc>`Z
 
-"Command for creating IO.inspects
+"Command for creating IO."inspects
 "Example:
 ":IO var -> IO.inspect(var, label: Var)
 ":IO > -> |> IO.inspect(label: <the first word above>)
+"TODO: pune sa fie pe rand nu sub el
 "TODO: this will break: 'unique_constraint(:email)' <- fix it
 "TODO: this will break: 'end)' <- fix it
 "TODO: this will break: 'k' followed by IO |> <- fix it
+"TODO: this will break: '}'
 command! -nargs=1 IO call s:IOInspect(<f-args>)
 function! s:IOInspect(label)
   if a:label =~ ">"
-    execute 'normal! kVyj'
+    execute 'normal! Vy'
     let l:line = @"
 
     let l:word = substitute(l:line, '^\s*[|>]*\s*', '', '')
@@ -37,9 +41,9 @@ function! s:IOInspect(label)
     "TODO: split can be replaced with something better
     let l:word = split(l:word)[0]
 
-    execute 'normal! mZO|> IO.inspect(label: ' . l:word. "\<esc>" . 'bvUA)' . "\<esc>" . '`Z'
+    execute 'normal! mZo|> IO.inspect(label: ' . l:word. "\<esc>" . 'bvUA)' . "\<esc>" . '`Z'
   else
-    execute 'normal! mZOIO.inspect('. a:label . ', label: ' .  a:label . "\<esc>" . 'bvU' . 'A)' . "\<esc>" . '`Z'
+    execute 'normal! mZoIO.inspect('. a:label . ', label: ' .  a:label . "\<esc>" . 'bvU' . 'A)' . "\<esc>" . '`Z'
   endif
 endfunction
 
@@ -80,10 +84,10 @@ noremap <C-j> 4j
 noremap <C-k> 4k
 
 "Resize window vertically -----------------------{{{
-nnoremap <leader>wl :resize +5<CR>
-nnoremap <leader>wh :resize -5<CR>
-nnoremap <leader>vl :vertical resize -5<CR>
-nnoremap <leader>vh :vertical resize +5<CR>
+nnoremap <leader>rk :resize +5<CR>
+nnoremap <leader>rj :resize -5<CR>
+nnoremap <leader>rl :vertical resize -5<CR>
+nnoremap <leader>rh :vertical resize +5<CR>
 " }}}
 
 au FocusGained,BufEnter * :silent! !
@@ -153,6 +157,9 @@ endfunction
 
 :onoremap c :<c-u>normal! mzf{vi{<cr>`z
 :onoremap C :<c-u>normal! mzF{vi{<cr>`z
+
+:onoremap q :<c-u>normal! mzf"vi"<cr>`z
+:onoremap Q :<c-u>normal! mzF"vi"<cr>`z
 " }}}
 
 " Abbreviations -------------------------- {{{
@@ -194,7 +201,9 @@ endfunction
   " it removes groups(resets so we don't stach autocmds)
   autocmd!
 
-  :autocmd BufWritePre *.exs :normal! =G
+  "Too slow for big files
+  ":autocmd BufWritePre *.exs :normal! =G
+  ":autocmd BufWritePre *.ex :normal! =G
 
   :autocmd FileType elixir :iabbrev cased case<space><esc>mai do<esc>oend<esc>`ai
   :autocmd FileType elixir :iabbrev defd def<space>do<cr>end<esc>kwi<esc>i
