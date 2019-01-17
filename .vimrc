@@ -158,8 +158,7 @@ endfunction
 :onoremap c :<c-u>normal! mzf{vi{<cr>`z
 :onoremap C :<c-u>normal! mzF{vi{<cr>`z
 
-:onoremap q :<c-u>normal! mzf"vi"<cr>`z
-:onoremap Q :<c-u>normal! mzF"vi"<cr>`z
+:onoremap " :<c-u>normal! mzf"vi"<cr>`z
 " }}}
 
 " Abbreviations -------------------------- {{{
