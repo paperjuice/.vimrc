@@ -145,7 +145,9 @@ endfunction
 :nnoremap <leader>ev :split $MYVIMRC<cr>
 :nnoremap <leader>sv :source $MYVIMRC<cr>
 
-:inoremap <leader>U <esc>viwUeA
+:inoremap <leader>U <esc>mZviwU`Z
+
+"Return to normal mode when jk/kj
 :inoremap jk <esc>
 
 " Operator ------------------------------ {{{
@@ -204,8 +206,7 @@ endfunction
   ":autocmd BufWritePre *.exs :normal! =G
   ":autocmd BufWritePre *.ex :normal! =G
 
-  :autocmd FileType elixir :iabbrev cased case<space><esc>mai do<esc>oend<esc>`ai
-  :autocmd FileType elixir :iabbrev defd def<space>do<cr>end<esc>kwi<esc>i
+  :autocmd! FileType elixir :iabbrev cased case<space><esc>mai do<esc>oend<esc>`ai
+  :autocmd! FileType elixir :iabbrev defd def<space>do<cr>end<esc>kwi<esc>i
 :augroup END
-
 " }}}
