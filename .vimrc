@@ -14,6 +14,7 @@ augroup END
 " }}}
 
 let mapleader="-"
+set bs=2
 
 iabbrev privatecom <cr># -----------------------------------------------------------------------<cr>#                               PRIVATE<cr># -----------------------------------------------------------------------
 
@@ -72,6 +73,13 @@ set tabstop=8 softtabstop=0 expandtab shiftwidth=2 smarttab
 "Delete instead of cut in visual mode when pressing d"
 nnoremap d "_d
 vnoremap d "_d
+
+"Delete from cursor to end without copying
+nnoremap <S-d> v$h"_d
+
+"Delete and insert without copying
+nnoremap s "_s
+vnoremap s "_s
 
 "find in current directory"
 set path=$PWD/**
