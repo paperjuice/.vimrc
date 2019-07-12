@@ -18,6 +18,7 @@ set bs=2
 
 iabbrev privatecom <cr># -----------------------------------------------------------------------<cr>#                               PRIVATE<cr># -----------------------------------------------------------------------
 
+
 "Adds quotation marks around the word where the cursor is
 nnoremap <leader>" mZbi"<esc>ea"<esc>`Z
 
@@ -172,6 +173,8 @@ endfunction
 " }}}
 
 " Abbreviations -------------------------- {{{
+:iabbrev > \|>
+
 :iabbrev defm <esc>gg:call ProcessModuleName()<cr>
 function! ProcessModuleName()
   "Get first line from mix.exs
