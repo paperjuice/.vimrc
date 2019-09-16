@@ -16,8 +16,8 @@ augroup END
 let mapleader="-"
 set bs=2
 
-iabbrev privatecom <cr># -----------------------------------------------------------------------<cr>#                               PRIVATE<cr># -----------------------------------------------------------------------
-
+"Add comment to Elixir
+iabbrev privatecom <cr># ---------------------------------------------<cr>#                    PRIVATE<cr># ---------------------------------------------
 
 "Adds quotation marks around the word where the cursor is
 nnoremap <leader>" mZbi"<esc>ea"<esc>`Z
